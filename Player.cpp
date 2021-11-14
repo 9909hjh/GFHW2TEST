@@ -9,6 +9,8 @@ void Player::draw()
   SDLGameObject::drawFrame();
 }
 
+//void Player::
+
 void Player::update()
 {
   handleInput();
@@ -21,12 +23,12 @@ void Player::clean() {}
 void Player::handleInput()
 {
   m_velocity.setX(0);
-  if(m_position.getX() < 0 || m_position.getX() + 82 >= 720)
+  if(m_position.getX() < 0 || m_position.getX() + 128 >= 720)
   {
     //std::cout <<"화면 밖으로 나감" << "\n";
     if(m_position.getX() < 0) // 화면 밖으로 나가도 움직이게 하는 코드
       m_velocity.setX(5);
-    else if(m_position.getX() + 82 >= 720)
+    else if(m_position.getX() + 128 >= 720)
       m_velocity.setX(-5); // 기존에는 if문 밖에 있는 m_velocity.setX(0);때문에 못 움직여졌음
     // if(m_position.getX() < 0)
     //   m_position.setX(5);
@@ -44,7 +46,6 @@ void Player::handleInput()
     }
   }
   
-
   if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
   {
     m_acceleration.setY(-0.1);
@@ -59,4 +60,6 @@ void Player::handleInput()
       m_acceleration.setY(0);
     }
   }
+  
 }
+
