@@ -27,7 +27,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer)){
      return false;
   }
-  
+
   if( !TheTextureManager::Instance()->load("Assets/Wall.png", "Wall", m_pRenderer)){
      return false;
   }
