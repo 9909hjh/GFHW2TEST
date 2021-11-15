@@ -22,8 +22,16 @@ void Player::clean() {}
 
 void Player::handleInput()
 {
+  SDL_Rect wall; // 11월 15일 추가 부분
+  wall.x = 520;
+  wall.y = 620;
+  wall.w = 100;
+  wall.h = 100;
+
+  m_Coll.x = m_position.getX();
+
   m_velocity.setX(0);
-  if(m_position.getX() < 0 || m_position.getX() + 128 >= 720)
+  if(m_position.getX() < 0 || m_position.getX() + 128 >= 720 || checkCollision(m_Coll, wall))
   {
     //std::cout <<"화면 밖으로 나감" << "\n";
     if(m_position.getX() < 0) // 화면 밖으로 나가도 움직이게 하는 코드
@@ -55,7 +63,8 @@ void Player::handleInput()
     //점프 구현
     if(m_position.getY() + 82 < 720)
       m_acceleration.setY(0.1);
-    else{
+    else
+    {
       m_velocity.setY(0);
       m_acceleration.setY(0);
     }
@@ -63,3 +72,8 @@ void Player::handleInput()
   
 }
 
+// 11월 15일 추가 부분
+bool Player::checkCollision(SDL_Rect a, SDL_Rect b)
+{
+
+}
