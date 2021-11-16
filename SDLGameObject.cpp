@@ -14,11 +14,20 @@ SDLGameObject::SDLGameObject(const LoaderParams* pParams)
   m_currentFrame = 0;
 }
 //m_rotationAngle 추가.
-void SDLGameObject::drawFrame() {
-  TextureManager::Instance()->drawFrame(m_textureID, (int)m_position.getX(), (int)m_position.getY(), m_width, m_height, m_rotationAngle, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer());
+void SDLGameObject::drawFrame() 
+{
+  if(m_velocity.getX() < 0){
+  TextureManager::Instance()->drawFrame(m_textureID, (int)m_position.getX(), (int)m_position.getY(), m_width, m_height, m_rotationAngle, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer(), SDL_FLIP_HORIZONTAL); // 플립부분
+  }
+  else
+  {
+    TextureManager::Instance()->drawFrame(m_textureID, (int)m_position.getX(), (int)m_position.getY(), m_width, m_height, m_rotationAngle, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer());
+  }
 }
 
-void SDLGameObject::draw() {
+void SDLGameObject::draw() 
+{
+  if(m_velocity.getX() > 0)
   TextureManager::Instance()->draw(m_textureID, (int)m_position.getX(), (int)m_position.getY(), m_width, m_height, m_rotationAngle, TheGame::Instance()->getRenderer());
 }
 
