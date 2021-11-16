@@ -29,9 +29,13 @@ void Player::handleInput()
   wall.h = 100;
 
   m_Coll.x = m_position.getX();
+  m_Coll.y = m_position.getY(); 
+
+
 
   m_velocity.setX(0);
-  if(m_position.getX() < 0 || m_position.getX() + 128 >= 720 || checkCollision(m_Coll, wall))
+  // 여기가 충돌검사 처럼 보이기는 부분(엉터리)
+  if(m_position.getX() < 0 || m_position.getX() + 128 >= 720 || checkCollision(m_Coll, wall))// 11월 15일 추가 부분
   {
     //std::cout <<"화면 밖으로 나감" << "\n";
     if(m_position.getX() < 0) // 화면 밖으로 나가도 움직이게 하는 코드
@@ -54,26 +58,70 @@ void Player::handleInput()
     }
   }
   
+
+  // if(m_position.getY() < 0 || m_position.getY() + 82 >= 720 || checkCollision(m_Coll, wall))
+  // {
+  //   // if(m_position.getX() < 0) // 화면 밖으로 나가도 움직이게 하는 코드
+  //   //   m_velocity.setX(5);
+  //   // else if(m_position.getX() + 128 >= 720)
+  //   //   m_velocity.setX(-5);
+  // }
+  // else{
+    
+  // }
   if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
-  {
-    m_acceleration.setY(-0.1);
-  }
-  else
-  {
-    //점프 구현
-    if(m_position.getY() + 82 < 720)
-      m_acceleration.setY(0.1);
+    {
+      m_acceleration.setY(-0.1);
+    }
     else
     {
-      m_velocity.setY(0);
-      m_acceleration.setY(0);
+      //점프 구현
+      if(m_position.getY() + 82 < 720)
+        m_acceleration.setY(0.1);
+      else
+      {
+        m_velocity.setY(0);
+        m_acceleration.setY(0);
+      }
     }
-  }
   
 }
 
 // 11월 15일 추가 부분
 bool Player::checkCollision(SDL_Rect a, SDL_Rect b)
 {
+  int leftA, leftB;
+  int rightA, rightB;
+  int topA, topB;
+  int bottomA, bottomB;
 
+  leftA = a.x;
+  rightA = a.x + a.w;
+  topA = a.y;
+  bottomA = a.y + a.h;
+
+  leftB = b.x;
+  rightB = b.x + b.w;
+  topB = b.y;
+  bottomB = b.y + b.h;
+
+  if(bottomA <= topB)
+  {
+    return false;
+  }
+
+  if(topA >= bottomB)
+  {
+    return false;
+  }
+  if(rightA<=leftB)
+  {
+    return false;
+  }
+  if(leftA>=rightB)
+  {
+    return false;
+  }
+
+  return true;
 }
