@@ -4,7 +4,7 @@ Tile::Tile(const LoaderParams* pParams) : SDLGameObject(pParams) {}
 
 void Tile::draw()
 {
-  SDLGameObject::draw();
+  SDLGameObject::drawFrame();
 }
 
 void Tile::update() {}
