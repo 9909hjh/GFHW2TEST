@@ -97,10 +97,10 @@ bool Player::checkCollision(SDL_Rect a, SDL_Rect b)
   topB = b.y;
   bottomB = b.y + b.h;
 
-  if(bottomA <= topB) return false;
-  if(topA >= leftB) return false;
-  if(rightA <= leftB) return false;
-  if(leftA >= rightB) return false;
+  if(bottomA <= topB) {return false;}
+  if(topA >= bottomB) {return false;}
+  if(rightA <= leftB) {return false;}
+  if(leftA >= rightB) {return false;}
 
   return true;
 }
