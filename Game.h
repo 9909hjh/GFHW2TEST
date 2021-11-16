@@ -5,7 +5,6 @@
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
-#include "Tile.h"
 #include "InputHandler.h"
 #include "vector"
 
@@ -29,7 +28,7 @@ class Game {
     }
     return s_pInstance;
   }
-  SDL_Renderer* getRenderer() const { return m_pRenderer; }
+  SDL_Renderer* getRenderer() const {return m_pRenderer; } 
   
 private:
   Game() {}

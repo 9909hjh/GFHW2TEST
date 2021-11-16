@@ -1,6 +1,5 @@
 #pragma once
 #include "SDLGameObject.h"
-#include "Tile.h"
 
 class Player : public SDLGameObject
 {
@@ -10,7 +9,10 @@ public:
   virtual void update();
   virtual void clean();
   void handleInput();
-  bool checkCollision(SDL_Rect a, SDL_Rect b);
 private:
-  SDL_Rect m_Coll;
+  bool isGround = true; //땅에 있는지 판별
+  bool isJump = false; //점프가 가능한지 판별
+  int GroundPos = 620;
+  float verticalVel;
+  int JumpForce = 20; // 점프 높이.
 };
