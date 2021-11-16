@@ -33,7 +33,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   }
 
   m_gameObjects.push_back( new Player( new LoaderParams(100, 300, 128, 82, "animate")));
-
+  m_gameObjects.push_back( new Tile( new LoaderParams(520, 620, 100, 100, "Wall")));
   
   m_bRunning = true;
   
