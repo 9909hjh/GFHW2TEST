@@ -21,6 +21,8 @@ class Game {
   void handleEvents();
   void clean();
   void quit() {m_bRunning = false;}
+
+  std::vector<GameObject*> getTile() const {return m_tile; }
   
   static Game* Instance() {
     if(s_pInstance == 0) {
@@ -34,7 +36,10 @@ class Game {
 private:
   Game() {}
   static Game* s_pInstance;
+  
   std::vector<GameObject*> m_gameObjects;
+  
+  std::vector<GameObject*> m_tile;
 
   SDL_Window* m_pWindow;
   SDL_Renderer* m_pRenderer;

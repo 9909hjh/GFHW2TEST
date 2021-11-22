@@ -11,7 +11,9 @@ public:
   //virtual void update() {}에서 함수가 있으니 {}를 삭제.
   virtual void clean() {}
 
-  
+  Vector2D GetPos() {return m_position;}
+  int GetWidth() {return m_width;}
+  int GetHeight() {return m_height;}
 
   virtual ~SDLGameObject() {}
 
@@ -22,6 +24,7 @@ protected:
 
   Vector2D m_velocity;
   Vector2D m_acceleration;
+
 
   int m_width;
   int m_height;

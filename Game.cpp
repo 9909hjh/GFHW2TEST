@@ -34,9 +34,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
   m_gameObjects.push_back( new Player( new LoaderParams(100, 300, 128, 82, "animate")));
 
-  for(int posX = 100; posX <= 300; posX += 30)
+  for(int posX = 0; posX <= 600; posX += 40)
   {
-    m_gameObjects.push_back( new Tile( new LoaderParams(posX, 550, 20, 20, "Wall")));
+    m_tile.push_back( new Tile( new LoaderParams(posX, 680, 40, 40, "Wall")));
   }
 
   
@@ -53,6 +53,11 @@ void Game::update()
     m_gameObjects[i] -> update();
   }
 
+  for(int i = 0; i< m_tile.size(); i++)
+  {
+    m_tile[i] -> update();
+  }
+
 }
 
 void Game::render()
@@ -63,6 +68,12 @@ void Game::render()
   {
     m_gameObjects[i]->draw();
   }
+
+  for(int i = 0; i< m_tile.size(); i++)
+  {
+    m_tile[i] -> draw();
+  }
+
   SDL_RenderPresent(m_pRenderer);
 }
 

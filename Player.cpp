@@ -1,5 +1,7 @@
 #include "Player.h"
+#include "Game.h"
 #include "InputHandler.h"
+#include "vector"
 #include <iostream>
 
 Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
@@ -14,6 +16,8 @@ void Player::draw()
 void Player::update()
 {
   handleInput();
+  checkColl();
+  m_acceleration.setY(0.98);
   m_currentFrame = ((SDL_GetTicks() / 100) % 6);
   SDLGameObject::update();
 }
@@ -46,40 +50,67 @@ void Player::handleInput()
     }
   }
   
-
-  if(m_position.getY() >= GroundPos)
-    isGround = true;
-  else
-    isGround = false;
-
-  if(isGround)
+  if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
   {
-    verticalVel = 0;
-    m_position.setY(GroundPos);
-    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)){
-      verticalVel = -JumpForce;
+    if(isGround)
+    {
+      m_velocity.setY(-20);
+      m_acceleration.setY(0.1);
+      isGround = false;
     }
   }
-  else if(!isGround)
-  {
-    verticalVel += 1; // 중력값
-  }
-
-  m_velocity.setY(verticalVel);
-  // if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
-  // {
-  //   m_acceleration.setY(-0.1);
-  // }
-  // else
-  // {
-  //   //점프 구현
-  //   if(m_position.getY() + 82 < 720)
-  //     m_acceleration.setY(0.1);
-  //   else{
-  //     m_velocity.setY(0);
-  //     m_acceleration.setY(0);
-  //   }
-  // }
-  
 }
 
+void Player::checkColl()
+{
+  std::vector<GameObject*> wallcoll = TheGame::Instance()->getTile();
+
+  int plrLeft = m_position.getX();
+  int plrRight = plrLeft + m_width;
+  int plrTop = m_position.getY();
+  int plrBottom = plrTop + m_height;
+
+  for(int i = 0; i < wallcoll.size(); i++)
+  {
+    int objectLeft = dynamic_cast<SDLGameObject*>(wallcoll[i])->GetPos().getX();
+    int objectRight = objectLeft + dynamic_cast<SDLGameObject*>(wallcoll[i])->GetWidth();
+    int objectTop = dynamic_cast<SDLGameObject*>(wallcoll[i])->GetPos().getY();
+    int objectBottom = objectTop + dynamic_cast<SDLGameObject*>(wallcoll[i])->GetHeight();
+
+    if(plrLeft <= objectRight && plrRight >= objectLeft && plrTop <= objectBottom && plrBottom >= objectTop)
+    {
+      //아래방향
+      if(m_velocity.getY() > 0 && plrBottom >= objectTop && plrBottom < objectBottom && plrLeft != objectRight && plrRight != objectLeft)
+      {
+        m_position.setY(objectTop - m_height);
+        plrTop = m_position.getY();
+        plrBottom = plrTop + m_height;
+
+        m_velocity.setY(0);
+        m_acceleration.setY(0.0);
+        isGround = true;
+      } //윗방향
+      else if(m_velocity.getY() < 0 && plrTop <= objectBottom && plrTop > objectTop && plrLeft != objectRight && plrRight != objectLeft)
+      {
+        m_position.setY(objectBottom);
+        plrTop = m_position.getY();
+        plrBottom = plrTop + m_height;
+
+        m_velocity.setY(0);
+      }
+
+      if(m_velocity.getX() < 0 && plrLeft <= objectRight && plrLeft > objectLeft && plrTop != objectBottom && plrBottom != objectTop)
+      {
+        m_position.setX(objectRight);
+
+        m_velocity.setX(0);
+      }
+      else if(m_velocity.getX() > 0 && plrRight >= objectLeft && plrRight < objectRight && plrTop != objectBottom && plrBottom != objectTop)
+      {
+        m_position.setX(objectRight - m_width);
+
+        m_velocity.setX(0);
+      }
+    }
+  }
+}
