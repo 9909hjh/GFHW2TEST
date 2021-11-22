@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "SDL.h"
 #include "Vector2D.h"
 
 class SDLGameObject : public GameObject {
@@ -25,7 +26,8 @@ protected:
   Vector2D m_velocity;
   Vector2D m_acceleration;
 
-
+  SDL_RendererFlip flip;
+  
   int m_width;
   int m_height;
   int m_rotationAngle; // 회전을 위한 추가
