@@ -1,7 +1,6 @@
-//11월 13일 점프구현 완료 // 16일에 뜯어고침
+//11월 13일 점프구현 완료
 //장애물, 충돌 검사 / 총알발사 / 화면 스크롤 / 화면 UI추가 / UML 해야함.
-// 구현 실패....
-// 구현 실패 부분까지의 UML : https://drive.google.com/file/d/17UtZQcIBaOQ0hM7k5xvGTHdsHxoOyGXD/view?usp=sharing
+
 
 #include "Game.h"
 #include <iostream>

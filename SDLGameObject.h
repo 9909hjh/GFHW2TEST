@@ -11,6 +11,8 @@ public:
   //virtual void update() {}에서 함수가 있으니 {}를 삭제.
   virtual void clean() {}
 
+  
+
   virtual ~SDLGameObject() {}
 
 protected:
