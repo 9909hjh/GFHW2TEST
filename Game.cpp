@@ -39,6 +39,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     m_tile.push_back( new Tile( new LoaderParams(posX, 680, 40, 40, "Wall")));
   }
 
+  m_tile.push_back( new Tile( new LoaderParams(100, 500, 40, 40, "Wall")));
+  m_tile.push_back( new Tile( new LoaderParams(150, 550, 40, 40, "Wall")));
+
   
   m_bRunning = true;
   
