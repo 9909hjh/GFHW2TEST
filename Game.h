@@ -35,8 +35,8 @@ class Game {
   bool getFire() {return Fire;} // 총알 발사
   void Firecheck(bool a) {Fire = a;} // 총알이 발사됬는지.
 
-  bool getisfilp() {return isfilp;}
-  void isfilpcheck(bool a) {isfilp = a;}
+  bool getisfilp() {return isfilp;} // 플립이 되었는지
+  void isfilpcheck(bool a) {isfilp = a;} // 플립확인.
 
   void BulletDestory();
 

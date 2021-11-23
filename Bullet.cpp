@@ -21,7 +21,7 @@ void Bullet::update()
   m_acceleration.setY(0);
   BulletCollision();
   Destory();
-
+  // 총알 발사 속도.
   if(TheGame::Instance()->getisfilp())
   {
     m_velocity.setX(5);
@@ -33,7 +33,7 @@ void Bullet::update()
   }
   SDLGameObject::update();
 }
-
+// 총알의 충돌 처리.
 void Bullet::BulletCollision()
 {
   std::vector<GameObject*> wallcoll = TheGame::Instance()->getTile();
@@ -89,7 +89,7 @@ void Bullet::BulletCollision()
     
   }
 }
-//총알 삭제.
+//화면 밖으로 나갈때 총알 삭제.
 void Bullet::Destory()
 {
   if(m_position.getX() < 0 || m_position.getX() > 720)

@@ -48,7 +48,6 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   m_tile.push_back( new Tile( new LoaderParams(100, 500, 40, 40, "Wall")));
   m_tile.push_back( new Tile( new LoaderParams(150, 550, 40, 40, "Wall")));
   m_tile.push_back( new Tile( new LoaderParams(500, 620, 40, 40, "Wall")));
-  //m_bullet.push_back(new Bullet(new ))
   
   
   m_bRunning = true;
@@ -63,12 +62,12 @@ void Game::update()
     m_gameObjects[i] -> update();
   }
 
-  for(int i = 0; i< m_tile.size(); i++)
+  for(int i = 0; i< m_tile.size(); i++) // 타일 update
   {
     m_tile[i] -> update();
   }
   
-  for(int i = 0; i< m_bullet.size(); i++)
+  for(int i = 0; i< m_bullet.size(); i++)// bullet update
   {
     m_bullet[i] -> update();
   }
@@ -84,12 +83,12 @@ void Game::render()
     m_gameObjects[i]->draw();
   }
 
-  for(int i = 0; i< m_tile.size(); i++)
+  for(int i = 0; i< m_tile.size(); i++) // 타일 draw
   {
     m_tile[i] -> draw();
   }
 
-  for(int i = 0; i< m_bullet.size(); i++)
+  for(int i = 0; i< m_bullet.size(); i++) // bullet draw
   {
     m_bullet[i] -> draw();
   }
