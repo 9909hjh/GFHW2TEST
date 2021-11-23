@@ -34,6 +34,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   if( !TheTextureManager::Instance()->load("Assets/ball.png", "ball", m_pRenderer)){
      return false;
   }
+  if( !TheTextureManager::Instance()->load("Assets/backGR.png", "backGR", m_pRenderer)){
+     return false;
+  }
 
   m_gameObjects.push_back( new Player( new LoaderParams(100, 300, 128, 82, "animate")));
 
@@ -55,7 +58,6 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-
   for(int i = 0; i < m_gameObjects.size(); i++)
   {
     m_gameObjects[i] -> update();
@@ -75,6 +77,7 @@ void Game::update()
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
+  TheTextureManager::Instance()->draw("backGR", 0, 0, 720, 720, 0, m_pRenderer, SDL_FLIP_NONE);
 
   for(int i = 0; i != m_gameObjects.size(); i++)
   {
