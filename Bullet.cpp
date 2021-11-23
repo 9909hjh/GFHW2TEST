@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "Game.h"
 
 Bullet::Bullet(const LoaderParams* pParams) : SDLGameObject(pParams)
 {
@@ -21,11 +22,12 @@ void Bullet::update()
   BulletCollision();
   Destory();
 
-  if(SDLGameObject::flip == SDL_FLIP_NONE)
+  if(TheGame::Instance()->getisfilp())
   {
     m_velocity.setX(5);
+    
   }
-  if(SDLGameObject::flip == SDL_FLIP_HORIZONTAL)
+  if(!TheGame::Instance()->getisfilp())
   {
     m_velocity.setX(-5);
   }
@@ -87,6 +89,7 @@ void Bullet::BulletCollision()
     
   }
 }
+//총알 삭제.
 void Bullet::Destory()
 {
   if(m_position.getX() < 0 || m_position.getX() > 720)

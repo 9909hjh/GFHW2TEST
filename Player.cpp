@@ -29,15 +29,16 @@ void Player::handleInput()
 {
   // 총알 발사부분
   if(TheInputHandler::Instance()->getMouseButtonState(LEFT)&& !TheGame::Instance()->getFire()) {
-    //isFire = true;
-    //TheGame::Instance()->Firecheck(isFire);
-    if(isfilp){
+    isFire = true;
+    TheGame::Instance()->Firecheck(isFire);
+
+    if(TheGame::Instance()->getisfilp()){
     Bullet* bullet = new Bullet(new LoaderParams(m_position.getX() + m_width - 30, m_position.getY() + 10 , 64, 64, "ball"));
     TheGame::Instance()->getBul(bullet);
     }
-    if(!isfilp)
+    if(!TheGame::Instance()->getisfilp())
     {
-      Bullet* bullet = new Bullet(new LoaderParams(m_position.getX() + m_width, m_position.getY() + 10 , 64, 64, "ball"));
+      Bullet* bullet = new Bullet(new LoaderParams(m_position.getX(), m_position.getY() + 10 , 64, 64, "ball"));
     TheGame::Instance()->getBul(bullet);
     }
   }
@@ -60,14 +61,20 @@ void Player::handleInput()
     {
       m_velocity.setX(5);
       SDLGameObject::flip = SDL_FLIP_NONE;
+      if(!TheGame::Instance()->getFire()){
+        TheGame::Instance()->isfilpcheck(true);
+      }
     }
     else if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))
     {
       m_velocity.setX(-5);
       SDLGameObject::flip = SDL_FLIP_HORIZONTAL;
+      if(!TheGame::Instance()->getFire()){
+        TheGame::Instance()->isfilpcheck(false);
+      }
     }
   }
-  
+  // 점프
   if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
   {
     if(isGround)
@@ -79,7 +86,7 @@ void Player::handleInput()
   }
 }
 
-void Player::checkColl()
+void Player::checkColl() // 콜라이더.
 {
   std::vector<GameObject*> collwall = TheGame::Instance()->getTile();
 

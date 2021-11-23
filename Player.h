@@ -18,5 +18,5 @@ private:
   int JumpForce = 20; // 점프 높이.
 
   bool isFire;
-  bool isfilp;
+  
 };

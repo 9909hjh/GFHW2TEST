@@ -46,7 +46,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   m_tile.push_back( new Tile( new LoaderParams(150, 550, 40, 40, "Wall")));
   m_tile.push_back( new Tile( new LoaderParams(500, 620, 40, 40, "Wall")));
   //m_bullet.push_back(new Bullet(new ))
-
+  
   
   m_bRunning = true;
   

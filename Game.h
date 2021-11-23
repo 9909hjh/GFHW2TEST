@@ -13,6 +13,7 @@
 
 class Game {
   public:
+  Game() : isfilp(true){}
   ~Game() {}
 
   bool init(const char* title, int xpos, int ypos, int height, int width, int flags);
@@ -32,7 +33,11 @@ class Game {
   }
   
   bool getFire() {return Fire;} // 총알 발사
-  void Firecheck(bool a) {Fire = a;}
+  void Firecheck(bool a) {Fire = a;} // 총알이 발사됬는지.
+
+  bool getisfilp() {return isfilp;}
+  void isfilpcheck(bool a) {isfilp = a;}
+
   void BulletDestory();
 
   static Game* Instance() {
@@ -45,7 +50,7 @@ class Game {
   SDL_Renderer* getRenderer() const {return m_pRenderer; } 
   
 private:
-  Game() {}
+  
   static Game* s_pInstance;
   
   std::vector<GameObject*> m_gameObjects;
@@ -58,6 +63,7 @@ private:
   bool m_bRunning;
   int m_currentFrame;
 
+  bool isfilp; // 총알방향
   bool Fire;
 };
 
