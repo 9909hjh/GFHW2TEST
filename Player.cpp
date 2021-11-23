@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "InputHandler.h"
 #include "vector"
+#include "Bullet.h"
 #include <iostream>
 
 Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
@@ -26,9 +27,19 @@ void Player::clean() {}
 
 void Player::handleInput()
 {
-  
-  if(TheInputHandler::Instance()->getMouseButtonState(LEFT)) {
-    printf("shoot \n");
+  // 총알 발사부분
+  if(TheInputHandler::Instance()->getMouseButtonState(LEFT)&& !TheGame::Instance()->getFire()) {
+    //isFire = true;
+    //TheGame::Instance()->Firecheck(isFire);
+    if(isfilp){
+    Bullet* bullet = new Bullet(new LoaderParams(m_position.getX() + m_width - 30, m_position.getY() + 10 , 64, 64, "ball"));
+    TheGame::Instance()->getBul(bullet);
+    }
+    if(!isfilp)
+    {
+      Bullet* bullet = new Bullet(new LoaderParams(m_position.getX() + m_width, m_position.getY() + 10 , 64, 64, "ball"));
+    TheGame::Instance()->getBul(bullet);
+    }
   }
 
   m_velocity.setX(0);
@@ -70,19 +81,19 @@ void Player::handleInput()
 
 void Player::checkColl()
 {
-  std::vector<GameObject*> wallcoll = TheGame::Instance()->getTile();
+  std::vector<GameObject*> collwall = TheGame::Instance()->getTile();
 
   int plrLeft = m_position.getX();
   int plrRight = plrLeft + m_width;
   int plrTop = m_position.getY();
   int plrBottom = plrTop + m_height;
 
-  for(int i = 0; i < wallcoll.size(); i++)
+  for(int i = 0; i < collwall.size(); i++)
   {
-    int objectLeft = dynamic_cast<SDLGameObject*>(wallcoll[i])->GetPos().getX();
-    int objectRight = objectLeft + dynamic_cast<SDLGameObject*>(wallcoll[i])->GetWidth();
-    int objectTop = dynamic_cast<SDLGameObject*>(wallcoll[i])->GetPos().getY();
-    int objectBottom = objectTop + dynamic_cast<SDLGameObject*>(wallcoll[i])->GetHeight();
+    int objectLeft = dynamic_cast<SDLGameObject*>(collwall[i])->GetPos().getX();
+    int objectRight = objectLeft + dynamic_cast<SDLGameObject*>(collwall[i])->GetWidth();
+    int objectTop = dynamic_cast<SDLGameObject*>(collwall[i])->GetPos().getY();
+    int objectBottom = objectTop + dynamic_cast<SDLGameObject*>(collwall[i])->GetHeight();
 
     if(plrLeft <= objectRight && plrRight >= objectLeft && plrTop <= objectBottom && plrBottom >= objectTop)
     {
@@ -105,16 +116,16 @@ void Player::checkColl()
 
         m_velocity.setY(0);
       }
-
+      //왼방향.
       if(m_velocity.getX() < 0 && plrLeft <= objectRight && plrLeft > objectLeft && plrTop != objectBottom && plrBottom != objectTop)
       {
         m_position.setX(objectRight);
 
         m_velocity.setX(0);
-      }
+      } // 오른방향.
       else if(m_velocity.getX() > 0 && plrRight >= objectLeft && plrRight < objectRight && plrTop != objectBottom && plrBottom != objectTop)
       {
-        m_position.setX(objectRight - m_width);
+        m_position.setX(objectLeft - m_width);
 
         m_velocity.setX(0);
       }

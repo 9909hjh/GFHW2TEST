@@ -44,7 +44,7 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
   m_tile.push_back( new Tile( new LoaderParams(100, 500, 40, 40, "Wall")));
   m_tile.push_back( new Tile( new LoaderParams(150, 550, 40, 40, "Wall")));
-
+  m_tile.push_back( new Tile( new LoaderParams(500, 620, 40, 40, "Wall")));
   //m_bullet.push_back(new Bullet(new ))
 
   
@@ -86,6 +86,11 @@ void Game::render()
     m_tile[i] -> draw();
   }
 
+  for(int i = 0; i< m_bullet.size(); i++)
+  {
+    m_bullet[i] -> draw();
+  }
+
   SDL_RenderPresent(m_pRenderer);
 }
 
@@ -97,6 +102,16 @@ bool Game::running()
 void Game::handleEvents()
 {
   TheInputHandler::Instance()->update();
+}
+
+void Game::BulletDestory() // 총알삭제.
+{
+  for(int i = 0; i< m_bullet.size(); i++)
+  {
+    m_bullet.erase(m_bullet.begin());
+    break;
+  }
+  Fire = false;
 }
 
 void Game::clean()

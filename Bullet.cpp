@@ -19,7 +19,7 @@ void Bullet::update()
 {
   m_acceleration.setY(0);
   BulletCollision();
-  //Destory();
+  Destory();
 
   if(SDLGameObject::flip == SDL_FLIP_NONE)
   {
@@ -57,8 +57,8 @@ void Bullet::BulletCollision()
         bulTop = m_position.getY();
         bulBottom = bulTop + m_height;
 
-        m_velocity.setY(0);
-        m_acceleration.setY(0.0);
+        // m_velocity.setY(0);
+        // m_acceleration.setY(0.0);
       } //윗방향
       else if(m_velocity.getY() < 0 && bulTop <= objectBottom && bulTop > objectTop && bulLeft != objectRight && bulRight != objectLeft)
       {
@@ -66,22 +66,32 @@ void Bullet::BulletCollision()
         bulTop = m_position.getY();
         bulBottom = bulTop + m_height;
 
-        m_velocity.setY(0);
+        //m_velocity.setY(0);
       }
 
       if(m_velocity.getX() < 0 && bulLeft <= objectRight && bulLeft > objectLeft && bulTop != objectBottom && bulBottom != objectTop)
       {
         m_position.setX(objectRight);
-
         m_velocity.setX(0);
+        TheGame::Instance()->BulletDestory();
+        setFire = true;
       }
       else if(m_velocity.getX() > 0 && bulRight >= objectLeft && bulRight < objectRight && bulTop != objectBottom && bulBottom != objectTop)
       {
-        m_position.setX(objectRight - m_width);
-
+        m_position.setX(objectLeft - m_width);
         m_velocity.setX(0);
+        TheGame::Instance()->BulletDestory();
+        setFire = true;
       }
     }
     
   }
+}
+void Bullet::Destory()
+{
+  if(m_position.getX() < 0 || m_position.getX() > 720)
+  {
+    TheGame::Instance()->BulletDestory();
+  }
+  setFire = true;
 }

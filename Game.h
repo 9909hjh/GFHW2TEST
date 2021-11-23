@@ -26,14 +26,13 @@ class Game {
   std::vector<GameObject*> getTile() const { return m_tile; } // 타일 오브젝트 coll
   std::vector<GameObject*> getbullet() const { return m_bullet; } //총알오브젝트 coll
   template <class Bult>
-  void getBillet(Bult* bult)
+  void getBul(Bult* bult)
   {
     m_bullet.push_back(bult);
   }
-  bool getFire() {return Fire;} // 총알 발사.
-
-  void Firecheck(bool a) {Fire = a;}
   
+  bool getFire() {return Fire;} // 총알 발사
+  void Firecheck(bool a) {Fire = a;}
   void BulletDestory();
 
   static Game* Instance() {

@@ -12,7 +12,7 @@ public:
   virtual void update();
   virtual void clean() {}
   void BulletCollision();
-  //void Destory();
+  void Destory();
   //void bulflipDir();
 
   bool setFire;
