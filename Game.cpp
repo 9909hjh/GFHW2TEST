@@ -31,6 +31,9 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
   if( !TheTextureManager::Instance()->load("Assets/Wall.png", "Wall", m_pRenderer)){
      return false;
   }
+  if( !TheTextureManager::Instance()->load("Assets/ball.png", "ball", m_pRenderer)){
+     return false;
+  }
 
   m_gameObjects.push_back( new Player( new LoaderParams(100, 300, 128, 82, "animate")));
 
@@ -41,6 +44,8 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
   m_tile.push_back( new Tile( new LoaderParams(100, 500, 40, 40, "Wall")));
   m_tile.push_back( new Tile( new LoaderParams(150, 550, 40, 40, "Wall")));
+
+  //m_bullet.push_back(new Bullet(new ))
 
   
   m_bRunning = true;
@@ -60,7 +65,11 @@ void Game::update()
   {
     m_tile[i] -> update();
   }
-
+  
+  for(int i = 0; i< m_bullet.size(); i++)
+  {
+    m_bullet[i] -> update();
+  }
 }
 
 void Game::render()

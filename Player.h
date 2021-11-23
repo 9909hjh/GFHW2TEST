@@ -16,4 +16,7 @@ private:
   //int GroundPos = 620;
   float verticalVel;
   int JumpForce = 20; // 점프 높이.
+
+  bool isFire;
+  
 };

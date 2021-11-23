@@ -26,6 +26,11 @@ void Player::clean() {}
 
 void Player::handleInput()
 {
+  
+  if(TheInputHandler::Instance()->getMouseButtonState(LEFT)) {
+    printf("shoot \n");
+  }
+
   m_velocity.setX(0);
   if(m_position.getX() < 0 || m_position.getX() + 128 >= 720)
   {
@@ -114,5 +119,6 @@ void Player::checkColl()
         m_velocity.setX(0);
       }
     }
+    
   }
 }
