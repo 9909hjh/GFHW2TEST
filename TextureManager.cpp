@@ -1,4 +1,5 @@
 #include "TextureManager.h"
+#include "Camera.h"
 #include "SDL_image.h"
 
 TextureManager* TextureManager::s_pInstance = 0;
@@ -30,8 +31,9 @@ SDL_Renderer *pRenderer, SDL_RendererFlip flip)
   srcRect.y = 0;
   srcRect.w = destRect.w = width;
   srcRect.h = destRect.h = height;
-  destRect.x = x;
-  destRect.y = y;
+  //카메라 부분
+  destRect.x = x - TheCamera::Instance()->getCameraRect().x;
+  destRect.y = y - TheCamera::Instance()->getCameraRect().y;
 
   SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &destRect, rotationAngle, NULL, flip);
 }
@@ -46,8 +48,9 @@ SDL_Renderer *pRenderer, SDL_RendererFlip flip)
   srcRect.y = height * currentRow;
   srcRect.w = destRect.w = width;
   srcRect.h = destRect.h = height;
-  destRect.x = x;
-  destRect.y = y;
+  // 카메라 부분
+  destRect.x = x - TheCamera::Instance()->getCameraRect().x;
+  destRect.y = y - TheCamera::Instance()->getCameraRect().y;
 
   SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &destRect, rotationAngle, NULL, flip);
 }

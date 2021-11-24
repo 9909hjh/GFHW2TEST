@@ -1,5 +1,5 @@
 //11월 22일 점프 && 콜라이더 수정 및 적용, 총알발사 완료
-//화면 스크롤 / 화면 UI추가 / UML 해야함.
+//화면 스크롤 / 화면 UI추가 실패.
 // 총알발사 까지의 UML : https://drive.google.com/file/d/17UtZQcIBaOQ0hM7k5xvGTHdsHxoOyGXD/view?usp=sharing
 
 

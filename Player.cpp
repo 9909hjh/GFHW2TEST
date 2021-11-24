@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Camera.h"
 #include "Game.h"
 #include "InputHandler.h"
 #include "vector"
@@ -84,6 +85,19 @@ void Player::handleInput()
       isGround = false;
     }
   }
+  //카메라 초점 위치
+  TheCamera::Instance()->getCameraRectX((m_position.getX() + (m_width / 2)) - 360);
+  TheCamera::Instance()->getCameraRectY((m_position.getY() + (m_height / 2))- 360);
+
+  if(TheCamera::Instance()->getCameraRect().x < 0)
+  {
+    TheCamera::Instance()->getCameraRectX(0);
+  }
+  if(TheCamera::Instance()->getCameraRect().y < 0)
+  {
+    TheCamera::Instance()->getCameraRectY(0);
+  }
+
 }
 
 void Player::checkColl() // 콜라이더.
