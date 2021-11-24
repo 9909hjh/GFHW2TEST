@@ -1,5 +1,5 @@
 //11월 22일 점프 && 콜라이더 수정 및 적용, 총알발사 완료
-//화면 스크롤 / 화면 UI추가 실패.
+//화면 스크롤 / 화면 UI추가 실패.(카메라 완료했지만 지각해서 카메라 부분은 서브밋 하지 않았습니다.)
 // 총알발사 까지의 UML : https://drive.google.com/file/d/17UtZQcIBaOQ0hM7k5xvGTHdsHxoOyGXD/view?usp=sharing
 
 
