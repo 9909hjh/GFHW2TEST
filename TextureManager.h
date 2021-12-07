@@ -23,6 +23,11 @@ class TextureManager {
       return s_pInstance;
     }
 
+    void clearFromTextureMap(std::string id) // 택스쳐의 id를 찾아 삭제
+    {
+      m_textureMap.erase(id);
+    }
+
   private:
     TextureManager() {}
     static TextureManager * s_pInstance;
