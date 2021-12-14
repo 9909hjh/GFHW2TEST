@@ -8,12 +8,8 @@
 #include "Tile.h"
 #include "Bullet.h"
 #include "InputHandler.h"
-#include "GameStateMachine.h"
-#include "MenuState.h"
-#include "PlayState.h"
 #include "vector"
 
-class GameStateMachine;
 
 class Game {
   public:
@@ -28,26 +24,21 @@ class Game {
   void clean();
   void quit() {m_bRunning = false;}
 
-  GameStateMachine* getStateMachine()
-	{
-		return m_pGameStateMachine;
-	}
-
   std::vector<GameObject*> getTile() const { return m_tile; } // 타일 오브젝트 coll
-  //std::vector<GameObject*> getbullet() const { return m_bullet; } //총알오브젝트 coll
-  // template <class Bult>
-  // void getBul(Bult* bult)
-  // {
-  //   m_bullet.push_back(bult);
-  // }
+  std::vector<GameObject*> getbullet() const { return m_bullet; } //총알오브젝트 coll
+  template <class Bult>
+  void getBul(Bult* bult)
+  {
+    m_bullet.push_back(bult);
+  }
   
-  // bool getFire() {return Fire;} // 총알 발사
-  // void Firecheck(bool a) {Fire = a;} // 총알이 발사됬는지.
+  bool getFire() {return Fire;} // 총알 발사
+  void Firecheck(bool a) {Fire = a;} // 총알이 발사됬는지.
 
   bool getisfilp() {return isfilp;} // 플립이 되었는지
   void isfilpcheck(bool a) {isfilp = a;} // 플립확인.
 
-  //void BulletDestory();
+  void BulletDestory();
 
   static Game* Instance() {
     if(s_pInstance == 0) {
@@ -65,7 +56,7 @@ private:
   std::vector<GameObject*> m_gameObjects;
   
   std::vector<GameObject*> m_tile;
-  // std::vector<GameObject*> m_bullet;
+  std::vector<GameObject*> m_bullet;
 
   SDL_Window* m_pWindow;
   SDL_Renderer* m_pRenderer;
@@ -73,9 +64,7 @@ private:
   int m_currentFrame;
 
   bool isfilp; // 총알방향
-  // bool Fire;
-
-  GameStateMachine* m_pGameStateMachine;
+  bool Fire;
 };
 
 typedef Game TheGame;

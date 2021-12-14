@@ -10,7 +10,7 @@ public:
   virtual void draw(); //
   virtual void update();
   //virtual void update() {}에서 함수가 있으니 {}를 삭제.
-  virtual void clean() {};
+  virtual void clean() {}
 
   Vector2D GetPos() {return m_position;}
   int GetWidth() {return m_width;}

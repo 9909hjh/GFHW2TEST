@@ -23,8 +23,6 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
     return false;
   }
 
-  m_pGameStateMachine = new GameStateMachine();
-  m_pGameStateMachine->changeState(new MenuState());
   
   if( !TheTextureManager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer)){
      return false;
@@ -59,43 +57,43 @@ bool Game::init(const char* title, int xpos, int ypos, int height, int width, in
 
 void Game::update()
 {
-  // for(int i = 0; i < m_gameObjects.size(); i++)
-  // {
-  //   m_gameObjects[i] -> update();
-  // }
+  for(int i = 0; i < m_gameObjects.size(); i++)
+  {
+    m_gameObjects[i] -> update();
+  }
 
-  // for(int i = 0; i< m_tile.size(); i++) // 타일 update
-  // {
-  //   m_tile[i] -> update();
-  // }
+  for(int i = 0; i< m_tile.size(); i++) // 타일 update
+  {
+    m_tile[i] -> update();
+  }
   
-  // for(int i = 0; i< m_bullet.size(); i++)// bullet update
-  // {
-  //   m_bullet[i] -> update();
-  // }
-  m_pGameStateMachine->update();
+  for(int i = 0; i< m_bullet.size(); i++)// bullet update
+  {
+    m_bullet[i] -> update();
+  }
 }
 
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
-  // TheTextureManager::Instance()->draw("backGR", 0, 0, 720, 720, 0, m_pRenderer, SDL_FLIP_NONE);
+  TheTextureManager::Instance()->draw("backGR", 0, 0, 720, 720, 0, m_pRenderer, SDL_FLIP_NONE);
+  // 문자 출력.
+  TheTextureManager::Instance()->TTF_drawFont("Test string", 0, 0, 100, 100, TheGame::Instance()->getRenderer());
 
-  // for(int i = 0; i != m_gameObjects.size(); i++)
-  // {
-  //   m_gameObjects[i]->draw();
-  // }
+  for(int i = 0; i != m_gameObjects.size(); i++)
+  {
+    m_gameObjects[i]->draw();
+  }
 
-  // for(int i = 0; i< m_tile.size(); i++) // 타일 draw
-  // {
-  //   m_tile[i] -> draw();
-  // }
+  for(int i = 0; i< m_tile.size(); i++) // 타일 draw
+  {
+    m_tile[i] -> draw();
+  }
 
-  // for(int i = 0; i< m_bullet.size(); i++) // bullet draw
-  // {
-  //   m_bullet[i] -> draw();
-  // }
-  m_pGameStateMachine->render();
+  for(int i = 0; i< m_bullet.size(); i++) // bullet draw
+  {
+    m_bullet[i] -> draw();
+  }
 
   SDL_RenderPresent(m_pRenderer);
 }
@@ -110,15 +108,15 @@ void Game::handleEvents()
   TheInputHandler::Instance()->update();
 }
 
-// void Game::BulletDestory() // 총알삭제.
-// {
-//   for(int i = 0; i< m_bullet.size(); i++)
-//   {
-//     m_bullet.erase(m_bullet.begin());
-//     break;
-//   }
-//   Fire = false;
-// }
+void Game::BulletDestory() // 총알삭제.
+{
+  for(int i = 0; i< m_bullet.size(); i++)
+  {
+    m_bullet.erase(m_bullet.begin());
+    break;
+  }
+  Fire = false;
+}
 
 void Game::clean()
 {
